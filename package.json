@@ -1,0 +1,41 @@
+{
+  "name": "llm-ssr",
+  "version": "1.0.0",
+  "description": "npm help init",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:stg": "npm run -w packages/infrastructure cdk:deploy -- target=staging",
+    "deploy:prod": "npm run -w packages/infrastructure cdk:deploy -- target=prod",
+    "diff:stg": "npm run -w packages/infrastructure cdk:diff -- target=staging",
+    "diff:prod": "npm run -w packages/infrastructure cdk:diff -- target=prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joe-king-sh/llm-ssr.git"
+  },
+  "author": "joe-king-sh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joe-king-sh/llm-ssr/issues"
+  },
+  "homepage": "https://github.com/joe-king-sh/llm-ssr#readme",
+  "workspaces": [
+    "packages/infrastructure",
+    "packages/app"
+  ],
+  "dependencies": {
+    "eslint": "^8.23.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  },
+  "volta": {
+    "node": "18.10.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.10",
+    "@tsconfig/strictest": "2.0.2"
+  }
+}
