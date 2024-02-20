@@ -8,9 +8,9 @@ import { Role, prompts, sendMessage } from "src/lib/llm";
 
 const ddbClient = new DynamoDBClient();
 
-const endpoint = process.env["LAMBDA_FUNCTION_URL"]!;
-
 export const handler: Handler = async (event) => {
+  const endpoint = process.env["LAMBDA_FUNCTION_URL"]!;
+
   console.log(event);
 
   let sessionId: string | undefined;
