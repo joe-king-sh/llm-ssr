@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/joe-king-sh/llm-ssr#readme",
   "workspaces": [
-    "packages/infrastructure",
-    "packages/app"
+    "infra",
+    "app"
   ],
   "dependencies": {
     "eslint": "^8.23.1",

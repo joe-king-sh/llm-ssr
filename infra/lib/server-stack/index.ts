@@ -7,9 +7,10 @@ export class LlmSsrStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new Table(this, "LlmSsrTable", {
+    const ddb = new Table(this, "LlmSsrTable", {
+      tableName: "llm-ssr-table",
       partitionKey: { name: "session_id", type: AttributeType.STRING },
-      sortKey: { name: "sent_at", type: AttributeType.STRING },
+      sortKey: { name: "sent_at", type: AttributeType.NUMBER },
       billingMode: BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
@@ -18,7 +19,7 @@ export class LlmSsrStack extends cdk.Stack {
       this,
       "NodejsLambdaFunction",
       {
-        entry: `../app/src/handler/index.ts`,
+        entry: "../app/src/handler/index.ts",
         bundling: {
           forceDockerBundling: false,
         },
@@ -26,12 +27,18 @@ export class LlmSsrStack extends cdk.Stack {
         environment: {
           OPENAI_API_KEY: cdk.aws_ssm.StringParameter.valueForStringParameter(
             this,
-            `OPENAI_API_KEY`
+            "OPENAI_API_KEY"
           ),
           OPENAI_ORG_ID: cdk.aws_ssm.StringParameter.valueForStringParameter(
             this,
-            `OPENAI_ORG_ID`
+            "OPENAI_ORG_ID"
           ),
+          // 一度デプロイ後エンドポイントが定まるので、2回目のデプロイで指定する
+          LAMBDA_FUNCTION_URL:
+            cdk.aws_ssm.StringParameter.valueForStringParameter(
+              this,
+              "LAMBDA_FUNCTION_URL"
+            ),
         },
         timeout: cdk.Duration.minutes(15),
       }
@@ -44,5 +51,7 @@ export class LlmSsrStack extends cdk.Stack {
         allowedOrigins: ["*"],
       },
     });
+
+    ddb.grantReadWriteData(lambda);
   }
 }
