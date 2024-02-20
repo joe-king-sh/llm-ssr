@@ -6,11 +6,7 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "type-check": "npm run type-check --workspaces",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy:stg": "npm run -w packages/infrastructure cdk:deploy -- target=staging",
-    "deploy:prod": "npm run -w packages/infrastructure cdk:deploy -- target=prod",
-    "diff:stg": "npm run -w packages/infrastructure cdk:diff -- target=staging",
-    "diff:prod": "npm run -w packages/infrastructure cdk:diff -- target=prod"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

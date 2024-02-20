@@ -10,6 +10,12 @@ This repository contains the code for the server-side rendering demo using LLM, 
 $ npm ci
 ```
 
+## Build
+
+```shell
+$ npm run build
+```
+
 ## Deploy
 
 Register the following parameters in SSM Parameter Store in advance:
